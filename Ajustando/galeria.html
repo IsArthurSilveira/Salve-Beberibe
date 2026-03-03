@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Galeria de fotos e registros do Coletivo Salve Beberibe — mutirões, plantios e atividades no Rio Beberibe.">
+    <title>Galeria | Salve Beberibe</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Filtro de categorias */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .625rem;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+        }
+        .filter-btn {
+            padding: .45rem 1.1rem;
+            border-radius: 999px;
+            font-size: .85rem;
+            font-weight: 600;
+            border: 2px solid var(--gray-200);
+            background: #fff;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--green);
+            border-color: var(--green);
+            color: #fff;
+        }
+        /* Grid da galeria */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius);
+            cursor: pointer;
+            aspect-ratio: 4/3;
+            background: var(--gray-100);
+        }
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .4s ease;
+            display: block;
+        }
+        .photo-item:hover img { transform: scale(1.06); }
+        .photo-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,.65) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity .3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+        }
+        .photo-item:hover .photo-overlay { opacity: 1; }
+        .photo-caption {
+            color: #fff;
+            font-size: .82rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        .photo-item.wide { grid-column: span 2; }
+        .photo-item.tall { grid-row: span 2; aspect-ratio: auto; }
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0,0,0,.92);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .lightbox.open { display: flex; }
+        .lightbox-img-wrap {
+            max-width: 90vw;
+            max-height: 80vh;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        .lightbox-img-wrap img {
+            display: block;
+            max-width: 90vw;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+        .lightbox-caption { color: rgba(255,255,255,.8); font-size: .9rem; text-align: center; }
+        .lightbox-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,.12);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+        .lightbox-close:hover { background: rgba(255,255,255,.22); }
+        @media (max-width: 768px) {
+            .photo-grid { grid-template-columns: repeat(2, 1fr); }
+            .photo-item.wide { grid-column: span 2; }
+            .photo-item.tall { grid-row: auto; aspect-ratio: 4/3; }
+        }
+        @media (max-width: 480px) {
+            .photo-grid { grid-template-columns: 1fr; }
+            .photo-item.wide { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ───────────── NAVBAR ───────────── -->
+<nav class="navbar" role="navigation" aria-label="Navegação principal">
+    <div class="container navbar-inner">
+        <a href="index.html" class="navbar-logo" aria-label="Salve Beberibe — Início">
+            <img src="Logo-Salve-Beberibe.png" alt="Logo Salve Beberibe" onerror="this.style.display='none'">
+            Salve Beberibe
+        </a>
+        <ul class="navbar-links" role="list">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="atividades.html">Atividades</a></li>
+            <li><a href="equipe.html">Equipe</a></li>
+            <li><a href="galeria.html" class="active">Galeria</a></li>
+            <li><a href="apoie.html" class="btn-cta">Apoie o Projeto</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<div id="mobile-menu" class="mobile-menu">
+    <a href="index.html">Início</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="atividades.html">Atividades</a>
+    <a href="equipe.html">Equipe</a>
+    <a href="galeria.html">Galeria</a>
+    <a href="apoie.html" class="btn-cta-mobile">Apoie o Projeto</a>
+</div>
+
+<!-- ───────────── PAGE HERO ───────────── -->
+<section style="padding: calc(var(--nav-h) + 4rem) 0 4rem; background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%); text-align: center;">
+    <div class="container">
+        <span class="badge badge-blue">Registros</span>
+        <h1 style="font-size:clamp(2rem,5vw,3rem); font-weight:900; margin:.75rem 0 1rem; color:var(--gray-800)">Galeria de Fotos</h1>
+        <p style="max-width:600px; margin:0 auto; color:var(--gray-600); font-size:1.05rem; line-height:1.75">
+            Cada imagem conta uma história de trabalho coletivo, resistência e amor pelo Rio Beberibe
+            e pelas comunidades que o habitam.
+        </p>
+    </div>
+</section>
+
+<!-- ───────────── GALERIA ───────────── -->
+<section style="padding:4rem 0 6rem; background:#fff;">
+    <div class="container">
+
+        <!-- Filtros -->
+        <div class="filter-bar reveal">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="mutirao">Mutirões</button>
+            <button class="filter-btn" data-filter="plantio">Plantios</button>
+            <button class="filter-btn" data-filter="educacao">Educação</button>
+            <button class="filter-btn" data-filter="evento">Eventos</button>
+        </div>
+
+        <!-- Highlight principal (foto real do projeto) -->
+        <div style="margin-bottom:1rem; border-radius:var(--radius-lg); overflow:hidden; max-height:480px; cursor:pointer;" class="reveal"
+             onclick="openLightbox(this.querySelector('img'))">
+            <img src="Foto-Multirão.jpeg"
+                 alt="Mutirão de limpeza no Rio Beberibe com voluntários do Salve Beberibe"
+                 style="width:100%; height:480px; object-fit:cover; display:block; transition:transform .4s ease;"
+                 onmouseover="this.style.transform='scale(1.02)'"
+                 onmouseout="this.style.transform='scale(1)'"
+                 data-caption="Mutirão de Limpeza no Rio Beberibe — 2023">
+        </div>
+
+        <!-- Grid da galeria -->
+        <div class="photo-grid reveal" id="gallery-grid">
+            <div class="photo-item wide" data-category="mutirao" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+                     alt="Voluntários removendo lixo das margens do rio"
+                     data-caption="Voluntários em ação nas margens do Beberibe">
+                <div class="photo-overlay"><p class="photo-caption">Mutirão de Limpeza · 2023</p></div>
+            </div>
+            <div class="photo-item" data-category="plantio" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://images.unsplash.com/photo-1542601906897-ecd87f2acf3b?w=600&q=80"
+                     alt="Plantio de mudas nativas"
+                     data-caption="Plantio de espécies nativas na mata ciliar">
+                <div class="photo-overlay"><p class="photo-caption">Plantio de Mudas · 2022</p></div>
+            </div>
+            <div class="photo-item" data-category="educacao" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80"
+                     alt="Atividade de educação ambiental"
+                     data-caption="Roda de conversa com estudantes">
+                <div class="photo-overlay"><p class="photo-caption">Educação Ambiental · Escola Pública</p></div>
+            </div>
+            <div class="photo-item" data-category="mutirao" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=600&q=80"
+                     alt="Equipe reunida antes do mutirão"
+                     data-caption="Equipe reunida antes do mutirão de 2022">
+                <div class="photo-overlay"><p class="photo-caption">Pré-mutirão · 2022</p></div>
+            </div>
+            <div class="photo-item" data-category="evento" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&q=80"
+                     alt="Evento cultural"
+                     data-caption="Encontro cultural e debate sobre racismo ambiental">
+                <div class="photo-overlay"><p class="photo-caption">Encontro Cultural · 2023</p></div>
+            </div>
+            <div class="photo-item wide" data-category="plantio" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80"
+                     alt="Margem do Rio Beberibe com vegetação nativa"
+                     data-caption="Trecho revitalizado com mudas nativas — Rio Beberibe">
+                <div class="photo-overlay"><p class="photo-caption">Margem Revitalizada · 2024</p></div>
+            </div>
+            <div class="photo-item" data-category="evento" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=600&q=80"
+                     alt="Registro das redes sociais do coletivo"
+                     data-caption="Comunicação digital e presença nas redes">
+                <div class="photo-overlay"><p class="photo-caption">Comunicação Digital</p></div>
+            </div>
+            <div class="photo-item" data-category="mutirao" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://images.unsplash.com/photo-1504711434962-90aa832a5588?w=600&q=80"
+                     alt="Rio Beberibe antes da limpeza"
+                     data-caption="Trecho do Beberibe antes das ações de limpeza">
+                <div class="photo-overlay"><p class="photo-caption">Antes da Limpeza · Rio Beberibe</p></div>
+            </div>
+            <div class="photo-item" data-category="educacao" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80"
+                     alt="Crianças em atividade ambiental"
+                     data-caption="Crianças participando de atividade de educação ambiental">
+                <div class="photo-overlay"><p class="photo-caption">Educação Infantil · Escola Pública</p></div>
+            </div>
+            <div class="photo-item wide" data-category="evento" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://images.unsplash.com/photo-1414609245224-aea4ea5f6d02?w=800&q=80"
+                     alt="Representação do coletivo na COP30"
+                     data-caption="Representação do Salve Beberibe na COP 30, Belém — 2025">
+                <div class="photo-overlay"><p class="photo-caption">COP 30 · Belém do Pará · 2025</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ───────────── LIGHTBOX ───────────── -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Visualizador de fotos">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Fechar">✕</button>
+    <div class="lightbox-img-wrap">
+        <img id="lightbox-img" src="" alt="">
+    </div>
+    <p id="lightbox-caption" class="lightbox-caption"></p>
+</div>
+
+<!-- ───────────── CTA ───────────── -->
+<section class="cta-banner">
+    <div class="container">
+        <h2>Registre você também!</h2>
+        <p>Participe de um mutirão, faça seus registros e compartilhe usando <strong>#SalveBeberibe</strong> nas redes sociais.</p>
+        <div class="btns">
+            <a href="https://instagram.com/salvebeberibe" target="_blank" rel="noopener" class="btn btn-outline-white">Ver no Instagram</a>
+            <a href="apoie.html" class="btn" style="background:#fff;color:var(--blue-dark);font-weight:700">Participar de um mutirão</a>
+        </div>
+    </div>
+</section>
+
+<!-- ───────────── FOOTER ───────────── -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>Salve Beberibe</h3>
+                <p>Coletivo socioambiental fundado em 2020, lutando pela recuperação do Rio Beberibe e contra o racismo ambiental nas periferias de Recife, Pernambuco.</p>
+                <div class="footer-social">
+                    <a href="https://instagram.com/salvebeberibe" target="_blank" rel="noopener" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="3"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                    </a>
+                    <a href="mailto:salvebeberibe@gmail.com" aria-label="E-mail">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Páginas</h4>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="sobre.html">Sobre o Coletivo</a></li>
+                    <li><a href="atividades.html">Atividades</a></li>
+                    <li><a href="equipe.html">Nossa Equipe</a></li>
+                    <li><a href="galeria.html">Galeria</a></li>
+                    <li><a href="apoie.html">Apoie o Projeto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Atividades</h4>
+                <ul>
+                    <li><a href="atividades.html#limpeza">Mutirões de Limpeza</a></li>
+                    <li><a href="atividades.html#plantio">Restauração Vegetal</a></li>
+                    <li><a href="atividades.html#educacao">Educação Ambiental</a></li>
+                    <li><a href="atividades.html#denuncia">Denúncias e Pressão</a></li>
+                    <li><a href="atividades.html#mobilizacao">Mobilização Social</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contato</h4>
+                <ul>
+                    <li><a href="mailto:salvebeberibe@gmail.com">salvebeberibe@gmail.com</a></li>
+                    <li><a href="https://instagram.com/salvebeberibe" target="_blank" rel="noopener">@salvebeberibe</a></li>
+                    <li><span style="color:rgba(255,255,255,.45);font-size:.85rem">Recife, Pernambuco — Brasil</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2024 Coletivo Salve Beberibe. Todos os direitos reservados.</span>
+            <span>Feito com 💚 pela comunidade</span>
+        </div>
+    </div>
+</footer>
+
+<button id="back-to-top" aria-label="Voltar ao topo">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+</button>
+
+<script src="js/main.js"></script>
+<script>
+    // Lightbox desta página
+    function openLightbox(img) {
+        document.getElementById('lightbox-img').src = img.src;
+        document.getElementById('lightbox-img').alt = img.alt;
+        document.getElementById('lightbox-caption').textContent = img.dataset.caption || '';
+        document.getElementById('lightbox').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+        if (e.target === this) closeLightbox();
+    });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // Filtro de categorias
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            const filter = this.dataset.filter;
+            document.querySelectorAll('#gallery-grid .photo-item').forEach(item => {
+                if (filter === 'all' || item.dataset.category === filter) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

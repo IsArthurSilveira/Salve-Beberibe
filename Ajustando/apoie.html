@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apoie o Coletivo Salve Beberibe — seja voluntário, faça uma doação ou se torne parceiro da causa socioambiental.">
+    <title>Apoie o Projeto | Salve Beberibe</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .formas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.75rem;
+        }
+        .forma-card {
+            background: #fff;
+            border-radius: var(--radius-lg);
+            padding: 2rem 1.75rem;
+            border: 2px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            transition: var(--transition);
+        }
+        .forma-card:hover {
+            border-color: var(--green);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+        .forma-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            font-size: 1.75rem;
+        }
+        .forma-card h3 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--gray-800);
+            margin-bottom: .75rem;
+        }
+        .forma-card p {
+            font-size: .9rem;
+            color: var(--gray-600);
+            line-height: 1.65;
+            margin-bottom: 1.5rem;
+        }
+        /* FAQ */
+        .faq-list { max-width: 760px; margin: 0 auto; }
+        .faq-item {
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .faq-btn {
+            width: 100%;
+            text-align: left;
+            padding: 1.25rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: .98rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            cursor: pointer;
+            background: none;
+            border: none;
+            gap: 1rem;
+        }
+        .faq-btn .arrow {
+            flex-shrink: 0;
+            transition: transform .3s ease;
+            color: var(--green);
+        }
+        .faq-btn.open .arrow { transform: rotate(180deg); }
+        .faq-body {
+            display: none;
+            padding-bottom: 1.25rem;
+            font-size: .9rem;
+            color: var(--gray-600);
+            line-height: 1.75;
+        }
+        .faq-body.open { display: block; }
+        /* Formulário */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label {
+            display: block;
+            font-size: .875rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: .4rem;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: .75rem 1rem;
+            border: 1.5px solid var(--gray-200);
+            border-radius: .5rem;
+            font-size: .95rem;
+            font-family: inherit;
+            color: var(--gray-800);
+            background: #fff;
+            transition: var(--transition);
+            resize: vertical;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(45,106,79,.12);
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        @media (max-width: 768px) {
+            .formas-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ───────────── NAVBAR ───────────── -->
+<nav class="navbar" role="navigation" aria-label="Navegação principal">
+    <div class="container navbar-inner">
+        <a href="index.html" class="navbar-logo" aria-label="Salve Beberibe — Início">
+            <img src="Logo-Salve-Beberibe.png" alt="Logo Salve Beberibe" onerror="this.style.display='none'">
+            Salve Beberibe
+        </a>
+        <ul class="navbar-links" role="list">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="atividades.html">Atividades</a></li>
+            <li><a href="equipe.html">Equipe</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="apoie.html" class="btn-cta active">Apoie o Projeto</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<div id="mobile-menu" class="mobile-menu">
+    <a href="index.html">Início</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="atividades.html">Atividades</a>
+    <a href="equipe.html">Equipe</a>
+    <a href="galeria.html">Galeria</a>
+    <a href="apoie.html" class="btn-cta-mobile">Apoie o Projeto</a>
+</div>
+
+<!-- ───────────── PAGE HERO ───────────── -->
+<section style="padding: calc(var(--nav-h) + 4rem) 0 4rem; background: linear-gradient(135deg, #1b4332 0%, #028090 100%); text-align: center; color:#fff;">
+    <div class="container">
+        <span class="badge" style="background:rgba(255,255,255,.15); color:#fff;">Faça a diferença</span>
+        <h1 style="font-size:clamp(2rem,5vw,3rem); font-weight:900; margin:.75rem 0 1rem; color:#fff;">Apoie o Salve Beberibe</h1>
+        <p style="max-width:600px; margin:0 auto; color:rgba(255,255,255,.8); font-size:1.05rem; line-height:1.75">
+            Cada forma de apoio — seja o seu tempo, seus recursos ou sua voz —
+            é combustível para a nossa luta por um Rio Beberibe mais limpo e comunidades mais dignas.
+        </p>
+    </div>
+</section>
+
+<!-- ───────────── FORMAS DE APOIO ───────────── -->
+<section style="padding:5rem 0; background:var(--cream);">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="badge badge-green">Escolha sua forma</span>
+            <h2>Como você pode apoiar</h2>
+            <div class="divider divider-green"></div>
+            <p>Há várias formas de contribuir — encontre a que faz mais sentido para você.</p>
+        </div>
+        <div class="formas-grid">
+            <div class="forma-card reveal">
+                <div class="forma-icon" style="background:var(--green-light);">🙌</div>
+                <h3>Seja Voluntário</h3>
+                <p>Participe dos mutirões de limpeza, plantios e atividades de educação ambiental. Não é preciso ter experiência — só vontade de ajudar.</p>
+                <a href="#voluntario" class="btn btn-primary" style="width:100%">Quero ser voluntário</a>
+            </div>
+            <div class="forma-card reveal">
+                <div class="forma-icon" style="background:#fef9ec;">💛</div>
+                <h3>Faça uma Doação</h3>
+                <p>Contribuições financeiras ajudam a custear material de limpeza, EPIs para voluntários, mudas nativas e divulgação das ações.</p>
+                <a href="#doacao" class="btn btn-blue" style="width:100%">Quero doar</a>
+            </div>
+            <div class="forma-card reveal">
+                <div class="forma-icon" style="background:var(--blue-light);">🤝</div>
+                <h3>Seja Parceiro</h3>
+                <p>Empresas, instituições e coletivos podem estabelecer parcerias formais com o Salve Beberibe para ampliar o impacto das ações.</p>
+                <a href="#parceria" class="btn btn-outline" style="width:100%">Propor parceria</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ───────────── VOLUNTARIADO ───────────── -->
+<section id="voluntario" style="padding:5rem 0; background:#fff;">
+    <div class="container">
+        <div class="about-home-grid">
+            <div class="reveal">
+                <span class="badge badge-green">Voluntariado</span>
+                <h2 style="font-size:clamp(1.6rem,3.5vw,2.2rem); font-weight:800; margin:.75rem 0 1.25rem; line-height:1.25">Venha para o mutirão</h2>
+                <p style="color:var(--gray-600); line-height:1.75; margin-bottom:1rem">
+                    Nossos mutirões acontecem geralmente aos sábados, nas primeiras
+                    horas da manhã. Tudo é fornecido: luvas, sacos, ferramentas e
+                    café da manhã coletivo. Você só precisa trazer roupa velha e
+                    disposição.
+                </p>
+                <ul class="check-list">
+                    <li>Não é preciso ter experiência prévia</li>
+                    <li>Crianças maiores de 12 anos podem participar com responsável</li>
+                    <li>Fique por dentro das datas pelo Instagram <strong>@salvebeberibe</strong></li>
+                    <li>Preencha o formulário abaixo para receber avisos antecipados</li>
+                </ul>
+            </div>
+            <div class="about-home-img reveal">
+                <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=700&q=80" alt="Grupo de voluntários reunido">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ───────────── DOAÇÃO ───────────── -->
+<section id="doacao" style="padding:5rem 0; background:var(--cream);">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="badge badge-yellow">Doações</span>
+            <h2>Onde vai o seu dinheiro?</h2>
+            <div class="divider divider-yellow"></div>
+            <p>Somos 100% transparentes com o uso dos recursos recebidos.</p>
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:2.5rem; align-items:start;" class="support-grid">
+            <div class="support-card reveal">
+                <h3>Aplicação dos recursos</h3>
+                <p style="color:var(--gray-600); font-size:.9rem; margin-top:.5rem">Cada real doado vai diretamente para as ações do coletivo:</p>
+                <ul class="support-use-list">
+                    <li>
+                        <div class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="var(--green)" stroke-width="2" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+                        EPIs e equipamentos para os voluntários (luvas, botas, protetor solar)
+                    </li>
+                    <li>
+                        <div class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="var(--green)" stroke-width="2" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+                        Mudas nativas para os plantios de restauração da mata ciliar
+                    </li>
+                    <li>
+                        <div class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="var(--green)" stroke-width="2" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
+                        Material educativo para oficinas em escolas públicas
+                    </li>
+                    <li>
+                        <div class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="var(--green)" stroke-width="2" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+                        Equipamentos de fotografia e vídeo para documentação das ações
+                    </li>
+                    <li>
+                        <div class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="var(--green)" stroke-width="2" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+                        Alimentação nos encontros coletivos e mutirões
+                    </li>
+                </ul>
+            </div>
+            <div class="support-card reveal">
+                <h3>Chave Pix para doação</h3>
+                <p style="color:var(--gray-600); font-size:.9rem; margin-top:.5rem; margin-bottom:1.25rem">
+                    Toda doação, de qualquer valor, é muito bem-vinda e faz diferença real no trabalho do coletivo.
+                </p>
+                <div style="background:var(--green-light); border-radius:var(--radius); padding:1.5rem; text-align:center; margin-bottom:1.5rem;">
+                    <p style="font-size:.78rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--green-dark); margin-bottom:.5rem">Chave Pix (e-mail)</p>
+                    <p style="font-size:1.1rem; font-weight:800; color:var(--green-dark); user-select:all;">salvebeberibe@gmail.com</p>
+                    <p style="font-size:.78rem; color:var(--green); margin-top:.35rem">Toque para selecionar e copiar</p>
+                </div>
+                <p style="font-size:.82rem; color:var(--gray-600); line-height:1.65">
+                    Após a doação, se quiser um comprovante de uso, envie seu
+                    recibo para o mesmo e-mail. Publicamos periodicamente relatórios
+                    de prestação de contas nas redes sociais.
+                </p>
+                <div style="margin-top:1.25rem">
+                    <a href="mailto:salvebeberibe@gmail.com" class="btn btn-primary" style="width:100%">Entrar em contato</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ───────────── FORMULÁRIO ───────────── -->
+<section id="parceria" style="padding:5rem 0; background:#fff;">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="badge badge-blue">Contato</span>
+            <h2>Fale com a gente</h2>
+            <div class="divider divider-blue"></div>
+            <p>Use este formulário para se inscrever como voluntário, propor uma parceria ou tirar qualquer dúvida.</p>
+        </div>
+        <form class="contact-form reveal" name="apoio" action="mailto:salvebeberibe@gmail.com" method="post" enctype="text/plain" novalidate>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nome">Nome completo *</label>
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail *</label>
+                    <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="telefone">Telefone / WhatsApp</label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="(81) 9 0000-0000">
+                </div>
+                <div class="form-group">
+                    <label for="tipo">Como quer apoiar? *</label>
+                    <select id="tipo" name="tipo" required>
+                        <option value="" disabled selected>Selecione...</option>
+                        <option value="voluntario">Ser voluntário nos mutirões</option>
+                        <option value="doacao">Fazer uma doação</option>
+                        <option value="parceria">Propor uma parceria institucional</option>
+                        <option value="imprensa">Imprensa / Cobertura jornalística</option>
+                        <option value="outro">Outro assunto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mensagem">Mensagem *</label>
+                <textarea id="mensagem" name="mensagem" rows="5" placeholder="Conte um pouco sobre você e como gostaria de contribuir..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%; font-size:1rem; padding:.875rem">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                Enviar mensagem
+            </button>
+        </form>
+
+        <!-- Contatos diretos -->
+        <div class="contact-options reveal" style="max-width:600px; margin:2.5rem auto 0;">
+            <a href="https://instagram.com/salvebeberibe" target="_blank" rel="noopener" class="contact-item">
+                <div class="c-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="3"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                </div>
+                <div>
+                    <strong>Instagram</strong>
+                    <span>@salvebeberibe · Mensagem direta</span>
+                </div>
+            </a>
+            <a href="mailto:salvebeberibe@gmail.com" class="contact-item">
+                <div class="c-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <div>
+                    <strong>E-mail</strong>
+                    <span>salvebeberibe@gmail.com</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ───────────── FAQ ───────────── -->
+<section style="padding:5rem 0; background:var(--cream);">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="badge badge-green">Dúvidas frequentes</span>
+            <h2>Perguntas frequentes</h2>
+            <div class="divider divider-green"></div>
+        </div>
+        <div class="faq-list reveal">
+            <div class="faq-item">
+                <button class="faq-btn" aria-expanded="false">
+                    Preciso ter alguma habilidade específica para ser voluntário?
+                    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-body">
+                    Não! Nenhuma habilidade técnica é exigida para participar dos mutirões de limpeza ou plantios. Basta ter disposição e roupa confortável. Para ações de comunicação ou educação, algumas competências específicas são bem-vindas, mas não obrigatórias.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-btn" aria-expanded="false">
+                    Com que frequência os mutirões acontecem?
+                    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-body">
+                    Os mutirões acontecem de forma periódica, geralmente a cada 1 a 2 meses, aos sábados pela manhã. As datas são anunciadas com antecedência no Instagram <strong>@salvebeberibe</strong> e, para quem se cadastrar pelo formulário acima, também por e-mail.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-btn" aria-expanded="false">
+                    Minha empresa pode patrocinar as ações?
+                    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-body">
+                    Sim! Empresas que queiram apoiar financeiramente ou com materiais (EPIs, sacos de lixo, mudas, lanches) podem entrar em contato pelo e-mail <strong>salvebeberibe@gmail.com</strong>. Temos interesse em parcerias que agreguem valor real às ações e que estejam alinhadas com os valores do coletivo.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-btn" aria-expanded="false">
+                    O coletivo tem CNPJ ou é formalizado?
+                    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-body">
+                    O Salve Beberibe atua como coletivo informal. As doações são recebidas via Pix pessoal e a prestação de contas é feita de forma pública pelas redes sociais. Estamos em processo de avaliar a formalização para ampliar o acesso a editais e financiamentos públicos e privados.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-btn" aria-expanded="false">
+                    Como posso ajudar sem sair de casa?
+                    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-body">
+                    Seguir, curtir, comentar e compartilhar nosso conteúdo no Instagram já ajuda muito a ampliar o alcance da causa. Você também pode fazer uma doação pelo Pix, indicar o coletivo para empresas interessadas em responsabilidade socioambiental ou produzir conteúdo sobre o Rio Beberibe e marcar <strong>@salvebeberibe</strong>.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ───────────── FOOTER ───────────── -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>Salve Beberibe</h3>
+                <p>Coletivo socioambiental fundado em 2020, lutando pela recuperação do Rio Beberibe e contra o racismo ambiental nas periferias de Recife, Pernambuco.</p>
+                <div class="footer-social">
+                    <a href="https://instagram.com/salvebeberibe" target="_blank" rel="noopener" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="3"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                    </a>
+                    <a href="mailto:salvebeberibe@gmail.com" aria-label="E-mail">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Páginas</h4>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="sobre.html">Sobre o Coletivo</a></li>
+                    <li><a href="atividades.html">Atividades</a></li>
+                    <li><a href="equipe.html">Nossa Equipe</a></li>
+                    <li><a href="galeria.html">Galeria</a></li>
+                    <li><a href="apoie.html">Apoie o Projeto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Atividades</h4>
+                <ul>
+                    <li><a href="atividades.html#limpeza">Mutirões de Limpeza</a></li>
+                    <li><a href="atividades.html#plantio">Restauração Vegetal</a></li>
+                    <li><a href="atividades.html#educacao">Educação Ambiental</a></li>
+                    <li><a href="atividades.html#denuncia">Denúncias e Pressão</a></li>
+                    <li><a href="atividades.html#mobilizacao">Mobilização Social</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contato</h4>
+                <ul>
+                    <li><a href="mailto:salvebeberibe@gmail.com">salvebeberibe@gmail.com</a></li>
+                    <li><a href="https://instagram.com/salvebeberibe" target="_blank" rel="noopener">@salvebeberibe</a></li>
+                    <li><span style="color:rgba(255,255,255,.45);font-size:.85rem">Recife, Pernambuco — Brasil</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2024 Coletivo Salve Beberibe. Todos os direitos reservados.</span>
+            <span>Feito com 💚 pela comunidade</span>
+        </div>
+    </div>
+</footer>
+
+<button id="back-to-top" aria-label="Voltar ao topo">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+</button>
+
+<script src="js/main.js"></script>
+<script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const body = this.nextElementSibling;
+            const isOpen = body.classList.contains('open');
+            // Fechar todos
+            document.querySelectorAll('.faq-body').forEach(b => b.classList.remove('open'));
+            document.querySelectorAll('.faq-btn').forEach(b => { b.classList.remove('open'); b.setAttribute('aria-expanded', false); });
+            // Abrir o clicado (se estava fechado)
+            if (!isOpen) {
+                body.classList.add('open');
+                this.classList.add('open');
+                this.setAttribute('aria-expanded', true);
+            }
+        });
+    });
+</script>
+</body>
+</html>
