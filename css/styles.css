@@ -52,6 +52,14 @@ button { cursor: pointer; border: none; background: none; }
     padding-inline: 1.5rem;
 }
 
+/* Ajuste fluido do container em telas pequenas */
+@media (max-width: 768px) {
+    .container { padding-inline: 1rem; }
+}
+@media (max-width: 480px) {
+    .container { padding-inline: .75rem; }
+}
+
 .section-header {
     text-align: center;
     margin-bottom: 3.5rem;
@@ -106,6 +114,11 @@ button { cursor: pointer; border: none; background: none; }
     transition: var(--transition);
     border: 2px solid transparent;
     white-space: nowrap;
+}
+
+/* Em telas pequenas, botões primários ocupam largura total para melhor usabilidade */
+@media (max-width: 768px) {
+    .btn { width: 100%; justify-content: center; }
 }
 .btn-primary   { background: var(--green);  color: #fff; }
 .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
@@ -230,6 +243,7 @@ button { cursor: pointer; border: none; background: none; }
     font-weight: 500;
     transition: var(--transition);
 }
+.mobile-menu a { font-size: 1rem; }
 .mobile-menu a:hover { color: var(--green); background: var(--green-light); }
 .mobile-menu .btn-cta-mobile {
     display: block;
@@ -816,9 +830,11 @@ button { cursor: pointer; border: none; background: none; }
     .hero-stats { flex-wrap: wrap; gap: 1rem 2rem; }
 
     .about-home-grid { grid-template-columns: 1fr; }
+    .about-home-img { margin-top: 1rem; }
     .activities-grid { grid-template-columns: 1fr; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
     .support-grid { grid-template-columns: 1fr; }
+    .support-card { width: 100%; }
     .gallery-grid { grid-template-columns: 1fr 1fr; }
     .gallery-grid .featured { grid-column: span 2; }
 
@@ -833,6 +849,51 @@ button { cursor: pointer; border: none; background: none; }
 
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
     .footer-bottom { flex-direction: column; text-align: center; }
+}
+
+/* Tipografia responsiva: levemente reduzir size em telas muito pequenas */
+@media (max-width: 480px) {
+    h1 { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+    h2 { font-size: clamp(1.2rem, 5vw, 1.6rem); }
+    .section-header p, .container p { font-size: .95rem; }
+}
+
+/* Formulários e inputs responsivos */
+.contact-form, .form-group input, .form-group select, .form-group textarea { width: 100%; }
+.form-row { gap: .75rem; }
+@media (max-width: 768px) {
+    .form-row { grid-template-columns: 1fr; }
+}
+
+/* Ajustes gerais de imagens e mídia */
+.about-home-img img, .hero-img-card img, .gallery-grid img { width: 100%; height: auto; object-fit: cover; }
+
+/* Garantir cards com alturas equilibradas em telas maiores */
+@media (min-width: 769px) {
+    .formas-grid { align-items: stretch; }
+    .forma-card { display: flex; flex-direction: column; }
+}
+
+/* --- Ajustes específicos para seção de apoio (cards) --- */
+.formas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+.forma-card { display: flex; flex-direction: column; height: 100%; }
+.forma-card .forma-icon { width: 56px; height: 56px; font-size: 1.4rem; }
+.forma-card .btn { margin-top: auto; }
+
+@media (max-width: 768px) {
+    .formas-grid { grid-template-columns: 1fr; }
+    .forma-card { padding: 1.25rem; }
+    .forma-card h3 { font-size: 1.05rem; }
+    .forma-card p { margin-bottom: 1rem; }
+    .forma-card .forma-icon { width: 48px; height: 48px; }
+    .contact-options { gap: .6rem; }
+    .contact-item { padding: .9rem; }
+}
+
+@media (max-width: 480px) {
+    .forma-card h3 { font-size: 1rem; }
+    .forma-card p { font-size: .92rem; }
+    .contact-item strong { font-size: .9rem; }
 }
 
 @media (max-width: 480px) {
