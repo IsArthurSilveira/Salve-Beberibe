@@ -1,4 +1,4 @@
-# Salve Beberibe — Site Institucional (simples)
+# Salve Beberibe — Site Simples
 
 Projeto criado de forma voluntariada por mim para apoiar o trabalho do Coletivo Salve Beberibe e, ao mesmo tempo, como exercício prático para aprender e aprimorar habilidades em HTML, CSS e JavaScript.
 
@@ -39,8 +39,6 @@ O site é estático, então tudo roda localmente sem servidor.
 - `js/` — scripts
 - `images/` — imagens usadas no site
 
-> Observe: páginas de `equipe.html` e `galeria.html` foram removidas nesta versão para simplificar a estrutura do site.
-
 ## Como contribuir
 
 Se quiser melhorar algo (conteúdo, layout, correções), abra uma issue ou envie um pull request. Sugestões simples (texto, correções ortográficas) também são bem-vindas.
@@ -49,28 +47,6 @@ Se quiser melhorar algo (conteúdo, layout, correções), abra uma issue ou envi
 
 Este projeto foi desenvolvido de forma voluntariada por mim. A ideia não era criar um site complexo — a proposta era manter tudo simples, direto e funcional usando apenas HTML, CSS e JS. Ao mesmo tempo, usei o site como oportunidade para praticar e aprender mais sobre desenvolvimento front-end.
 
-## Contato
-
-Você pode entrar em contato pelo e-mail público do coletivo: salvebeberibe@gmail.com
-
----
-Obrigado por olhar o projeto — se quiser, posso ajudar a adicionar instruções de deploy, uma licença, ou transformar o site em um PWA simples.
-
 ## Deploy
 
 O site está publicado no Vercel: https://salve-beberibe.vercel.app
-
-## Observações sobre imagens
-
-Fiz uma análise rápida dos arquivos em `images/` e identifiquei alguns arquivos que não aparecem referenciados nas páginas HTML/CSS/JS do site. Antes de remover qualquer imagem, é recomendável revisar e manter um backup. Imagens aparentemente não usadas:
-
-- `images/222.png`
-- `images/aaaaa.png`
-- `images/aaaaaaaaaaaaa.jpeg`
-- `images/WhatsApp Image 2026-02-25 at 12.12.14 (1).jpeg`
-- `images/WhatsApp Image 2026-02-25 at 12.12.14.jpeg`
-- `images/WhatsApp Image 2026-02-25 at 12.12.18.jpeg`
-- `images/WhatsApp Image 2026-02-25 at 12.12.22.jpeg`
-- `images/WhatsApp Image 2026-02-25 at 12.12.23.jpeg`
-
-Se quiser, eu posso mover esses arquivos para uma pasta `images/unused/` ou apagá-los — me diga o que prefere.
